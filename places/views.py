@@ -1,15 +1,17 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
+from django.urls import reverse
 from .models import Place
 
 
 def show_places(request):
-    places = Place.objects.prefetch_related('images')
+    places = Place.objects.all()
 
     geojson_positions = {
         'type': 'FeatureCollection',
         'features': [],
     }
+
     for place in places:
         geojson_positions['features'].append({
             'type': 'Feature',
@@ -20,7 +22,7 @@ def show_places(request):
             'properties': {
                 'title': place.title,
                 'placeId': place.id,
-                'detailsUrl': '',
+                'detailsUrl': reverse('place_details', args=[place.id]),
             },
         })
 
