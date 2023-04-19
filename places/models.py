@@ -14,7 +14,8 @@ class Place(models.Model):
 
 class Image(models.Model):
     image = models.ImageField('Изображение')
+    position = models.IntegerField('Позиция', null=True)
     place = models.ForeignKey(verbose_name='Место', to=Place, on_delete=models.PROTECT, related_name='images')
 
     def __str__(self):
-        return f'{self.pk} {self.place.title}'
+        return f'{self.position} {self.place.title}'
