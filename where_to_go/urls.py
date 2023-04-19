@@ -21,7 +21,10 @@ from django.conf.urls.static import static
 from places import views
 
 urlpatterns = [
+
     path('admin/', admin.site.urls),
-    path('', views.show),
     path('__debug__/', include('debug_toolbar.urls')),
+    path('', views.show_places),
+    path('places/<int:place_id>', views.place_details),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
