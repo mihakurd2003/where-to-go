@@ -21,7 +21,6 @@ from django.conf.urls.static import static
 from places import views
 
 urlpatterns = [
-
     path('admin/', admin.site.urls),
     path('__debug__/', include('debug_toolbar.urls')),
     path('tinymce/', include('tinymce.urls')),

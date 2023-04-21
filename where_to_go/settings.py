@@ -28,9 +28,6 @@ DEBUG = env.bool('DEBUG')
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
-SESSION_COOKIE_SECURE = env.bool('SESSION_COOKIE_SECURE')
-CSRF_USE_SESSIONS = env.bool('CSRF_USE_SESSIONS')
-
 # Application definition
 
 INSTALLED_APPS = [
