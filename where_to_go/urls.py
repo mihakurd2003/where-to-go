@@ -24,6 +24,7 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
     path('__debug__/', include('debug_toolbar.urls')),
+    path('tinymce/', include('tinymce.urls')),
     path('', views.show_places),
     path('places/<int:place_id>', views.place_details, name='place_details'),
 
