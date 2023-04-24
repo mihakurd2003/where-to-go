@@ -30,4 +30,7 @@ python3 manage.py runserver
 - `DEBUG` — дебаг-режим. Поставьте `True`, чтобы увидеть отладочную информацию в случае ошибки.
 - `SECRET_KEY` — секретный ключ проекта
 - `ALLOWED_HOSTS` — см [документацию Django](https://docs.djangoproject.com/en/3.1/ref/settings/#allowed-hosts)
+## Готовый сайт
+
+[Куда пойти — Москва](http://185.159.129.214:80)
 
