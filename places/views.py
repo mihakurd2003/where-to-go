@@ -7,13 +7,9 @@ from .models import Place
 def show_places(request):
     places = Place.objects.all()
 
-    geojson_positions = {
-        'type': 'FeatureCollection',
-        'features': [],
-    }
-
+    features = []
     for place in places:
-        geojson_positions['features'].append({
+        features.append({
             'type': 'Feature',
             'geometry': {
                 'type': 'Point',
@@ -26,15 +22,20 @@ def show_places(request):
             },
         })
 
+    geojson_positions = {
+        'type': 'FeatureCollection',
+        'features': features,
+    }
+
     return render(request, 'index.html', {'places': geojson_positions})
 
 
 def place_details(request, place_id):
-    place = get_object_or_404(Place.objects.prefetch_related('images'), id=place_id)
+    place = get_object_or_404(Place, id=place_id)
 
-    json_place = {
+    serialized_place = {
         'title': place.title,
-        'imgs': [obj.image.url for obj in place.images.all()],
+        'imgs': [image_obj.image.url for image_obj in place.images.all()],
         'description_short': place.description_short,
         'description_long': place.description_long,
         'coordinates': {
@@ -43,4 +44,4 @@ def place_details(request, place_id):
         },
     }
 
-    return JsonResponse(json_place, json_dumps_params={'ensure_ascii': False, 'indent': 4})
+    return JsonResponse(serialized_place, json_dumps_params={'ensure_ascii': False, 'indent': 4})

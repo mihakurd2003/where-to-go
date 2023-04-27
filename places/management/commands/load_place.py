@@ -1,6 +1,15 @@
 from django.core.management.base import BaseCommand, CommandError
 import requests
+from urllib.parse import urlparse
 from places.models import Place, Image
+from django.core.files.base import ContentFile
+
+
+def save_image(place: Place, image_content: bytes, position: int, name: str):
+    content_file = ContentFile(image_content, name=name)
+    image = Image.objects.create(place=place, image=content_file, position=position)
+
+    return image
 
 
 class Command(BaseCommand):
@@ -22,8 +31,10 @@ class Command(BaseCommand):
                 )
 
                 for ind, img_url in enumerate(response['imgs'], start=1):
-                    image = place.images.get_or_create(position=ind)
-                    image[0].save_img_from_url(img_url)
+                    image_content = requests.get(img_url).content
+                    img_name = str(urlparse(img_url).path.split('/')[-1])
+                    print(img_name, img_url)
+                    save_image(place, image_content, ind, img_name)
 
             except Place.MultipleObjectsReturned:
                 raise CommandError(f'Place object has more than one object')

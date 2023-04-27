@@ -7,13 +7,15 @@ from .forms import FullDescForm
 
 class ImageInline(SortableInlineAdminMixin, admin.StackedInline):
     model = Image
-    readonly_fields = ['photo']
-    fields = ['image', 'photo', 'position']
+    readonly_fields = ['add_photo']
+    fields = ['image', 'add_photo', 'position']
     extra = 0
 
-    def photo(self, obj):
+    def add_photo(self, image_obj):
         return format_html(
-            f'<img src="{obj.image.url}" width="{obj.image.width // 5}" height="{obj.image.height // 5}"/>'
+            '<img src="{}" style="max-height: {};"/>',
+            image_obj.image.url,
+            '200px'
         )
 
 
@@ -29,9 +31,11 @@ class PlaceAdmin(SortableAdminBase, admin.ModelAdmin):
 
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
-    readonly_fields = ['photo']
+    readonly_fields = ['add_photo']
 
-    def photo(self, obj):
+    def add_photo(self, image_obj):
         return format_html(
-            f'<img src="{obj.image.url}" width="{obj.image.width // 4}" height="{obj.image.height // 4}"'
+            '<img src="{}" style="max-height: {};"/>',
+            image_obj.image.url,
+            '200px'
         )
