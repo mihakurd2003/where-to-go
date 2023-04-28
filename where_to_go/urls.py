@@ -27,4 +27,8 @@ urlpatterns = [
     path('', views.show_places),
     path('places/<int:place_id>', views.place_details, name='place_details'),
 
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
