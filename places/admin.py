@@ -18,11 +18,13 @@ class PlaceAdmin(SortableAdminBase, admin.ModelAdmin):
     form = FullDescForm
 
     class Media:
-        js = ['adminsortable2/js/jquery-ui.min.js', 'adminsortable2/js/admin.sortable.min.js']
+        js = [
+            'adminsortable2/js/jquery-ui.min.js',
+            'adminsortable2/js/admin.sortable.min.js'
+        ]
         css = {'all': ('adminsortable2/css/admin.sortable.css',)}
 
 
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin, GetPhoto):
     readonly_fields = ['get_photo']
-

@@ -44,4 +44,10 @@ def place_details(request, place_id):
         },
     }
 
-    return JsonResponse(serialized_place, json_dumps_params={'ensure_ascii': False, 'indent': 4})
+    return JsonResponse(
+        serialized_place,
+        json_dumps_params={
+            'ensure_ascii': False,
+            'indent': 4
+        }
+    )

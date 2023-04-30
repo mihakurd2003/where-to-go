@@ -56,8 +56,7 @@ class Command(BaseCommand):
                     Command.save_image(place, image_response.content, ind, img_name)
 
             except Place.MultipleObjectsReturned:
-                raise CommandError(f'Place object has more than one object')
+                raise CommandError('Place object has more than one object')
 
             except Image.MultipleObjectsReturned:
-                raise CommandError(f'Image object has more than one object')
-
+                raise CommandError('Image object has more than one object')
